@@ -1,46 +1,115 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Text analyzer</title>
-    <meta charset="utf-8">
 
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/4.2.0/normalize.min.css">
-    <link rel="stylesheet" type="text/css" href="main.css">
-    
-</head>
-<body>
-    <div class="container">
-        <main>
-            <h1>Text analzyer</h1>
-            <p>Paste in text below, submit, and get some basic stats back.</p>
-            <form class="js-form">
-                <div>
-                    <label for="user-text">Text to analyze</label>
-                    <textarea input type="text" cols="60" rows="20" class="user-text" name="user-text" placeholder="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." required></textarea>
-                </div>
-                <div>
-                <!--button needs ID or class to reference in JS-->
-                    <button class="js-button" type="submit">Analyze it!</button>
-                </div>
-            </form>
 
-            <dl class="hidden text-report js-text-report">
-                <dt>Word count</dt>
-                <dd class="js-totalWord"></dd>
+// store the text input 
+function textInput(){
+	var input = $('.user-text').val();
 
-                <dt>Unique word count</dt>
-                <dd class="js-uniqueWord"></dd>
+	//var input = $(this).find('.user-text');
+	//var inputText = input.val();
+	//alert(inputText);
+	//return inputText;
 
-                <dt>Average word length</dt>
-                <dd class="js-avgWord"></dd>
-            </dl>
-        </main>
-    </div>
+	 //$(".js-text-report").text('text input is: ' + input);
+	 //$(".js-text-report").removeClass('hidden');
+	 return input;
+ 
+}
 
-    <!-- link to jquery -->
-  <script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+//Total word count
+function wordCount(){
+	//calling the text input function
+	var text = textInput();
+    return text.split(' ').length;
+    //var result = text.split(' ').length;
 
-    <!-- link to your app.js -->
-    <script type="text/javascript" src="app.js"></script>
-</body>
-</html>
+}
+
+//average word length
+function avgWord(){
+var text = textInput();
+//remove all spaces in string
+var sumofChar = text.replace(/\s+/g, '').length;
+
+return (sumofChar/wordCount()).toFixed(0);
+}
+
+
+//unique word count
+function uniqueWord(){
+
+//text input value
+//SOMETHING WRONG IN THIS ASSGINMENT. How to make each word an element in the array?
+var currentNum = textInput().split(' ');
+//create a new array 
+var newArray = [];
+//loop through all the elements in the textInput results
+for (var i=0; i <=currentNum.length; i++){
+	
+//if there's not a match, put it in the new array
+	if (newArray.indexOf(currentNum[i]) === -1) {
+
+		newArray.push(currentNum[i]);
+	}
+
+}
+
+return newArray;
+}
+
+/*
+//display form results
+function formResults(){
+	//assign above functions to variables to reference later
+	var numWords = wordCount(val);
+	var avgwordLength = avgWord(val);
+	//display results
+	var textReport = $('.js-text-report');
+	textReport.find('.js-totalWord').text(numWords);
+	textReport.find('.js-avgWord').text(avgwordLength);
+	textReport.removeClass('hidden');
+}
+
+*/
+
+//handle form submission 
+function formSubmission(){
+$('.js-form').submit(function(e){
+	e.preventDefault();
+	 $(".js-totalWord").text(wordCount());
+	 $(".js-avgWord").text(avgWord());
+	 $(".js-uniqueWord").text(uniqueWord());
+	 //$(".js-avgWord").text(avgWord());
+	 $(".js-text-report").removeClass('hidden');
+
+	
+});
+}
+
+
+/*
+function test(){
+	$('.js-form').submit(function(e){
+		e.preventDefault();
+		var message = "this is amazing";
+		alert(message);
+	});
+}
+
+*/
+
+//run the form submission
+$(function() {
+  formSubmission();
+});
+
+/*
+$(function() {
+  test();
+});
+*/
+
+
+	
+
+
+	
