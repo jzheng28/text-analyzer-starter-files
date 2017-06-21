@@ -1,5 +1,4 @@
 
-
 // store the text input 
 function textInput(){
 	var input = $('.user-text').val();
@@ -38,12 +37,13 @@ return (sumofChar/wordCount()).toFixed(0);
 function uniqueWord(){
 
 //text input value
+var text = textInput();
 //SOMETHING WRONG IN THIS ASSGINMENT. How to make each word an element in the array?
-var currentNum = textInput().split(' ');
+var currentNum = text.split(/[\s,\(\)]+/g);
 //create a new array 
 var newArray = [];
 //loop through all the elements in the textInput results
-for (var i=0; i <=currentNum.length; i++){
+for (var i=0; i < currentNum.length; i++){
 	
 //if there's not a match, put it in the new array
 	if (newArray.indexOf(currentNum[i]) === -1) {
@@ -53,7 +53,7 @@ for (var i=0; i <=currentNum.length; i++){
 
 }
 
-return newArray;
+return newArray.length;
 }
 
 /*
@@ -68,7 +68,6 @@ function formResults(){
 	textReport.find('.js-avgWord').text(avgwordLength);
 	textReport.removeClass('hidden');
 }
-
 */
 
 //handle form submission 
@@ -80,7 +79,7 @@ $('.js-form').submit(function(e){
 	 $(".js-uniqueWord").text(uniqueWord());
 	 //$(".js-avgWord").text(avgWord());
 	 $(".js-text-report").removeClass('hidden');
-
+	 console.log("hello world");
 	
 });
 }
@@ -94,7 +93,6 @@ function test(){
 		alert(message);
 	});
 }
-
 */
 
 //run the form submission
@@ -107,9 +105,3 @@ $(function() {
   test();
 });
 */
-
-
-	
-
-
-	
